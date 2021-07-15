@@ -7,12 +7,6 @@
 #Example: ./hiding.sh hide 30, ./hiding.sh unhide
 #or when installed: hide 30, unhide
 
-
-#TODO (Command Script)
-#-Dynamic network device grab [ X ]
-#-Make Country Random [ X ]
-#-Add minute paramater to hide command for server change [ X ]
-
 #Setup random country for hide command
 countries=(Greece Portugal Argentina Hong_Kong Romania Australia Hungary Serbia Austria Iceland Singapore Belgium Slovakia United_States Canada)
 random_index=$(( ( (RANDOM % 17) - 1 )  + 1 ))
