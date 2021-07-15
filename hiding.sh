@@ -9,21 +9,29 @@
 
 
 #TODO (Command Script)
-#-Dynamic network device grab [  ]
+#-Dynamic network device grab [ X ]
 #-Make Country Random [ X ]
 #-Add minute paramater to hide command for server change [ X ]
-#-Tweak the sleep duration [  ]
 
 #Setup random country for hide command
 countries=(Greece Portugal Argentina Hong_Kong Romania Australia Hungary Serbia Austria Iceland Singapore Belgium Slovakia United_States Canada)
 random_index=$(( ( (RANDOM % 17) - 1 )  + 1 ))
 random_country=${countries[$random_index]}
 
+#Get network device that is in use
+devices=$(ip addr show | awk '/inet.*brd/{print $NF}')
+
+for device in $devices
+do
+  active_device=$device
+  break
+done
+
 #Controls what the hide and unhide commands do
 if [ $1 == "hide" ]
 then
   sudo ifconfig wlp1s0 down
-  sudo macchanger -r wlp1s0
+  sudo macchanger -r $active_device
   sudo ifconfig wlp1s0 up
   sleep 5
   nordvpn set killswitch on
@@ -42,11 +50,11 @@ then
   sudo systemctl restart cron
 else
   sudo ifconfig wlp1s0 down
-  sudo macchanger -r wlp1s0
+  sudo macchanger -r $active_device
   sudo ifconfig wlp1s0 up
   sleep 5
   nordvpn set killswitch on
-  nordvpn connect United_States
-  echo "*/10 * * * * root nordvpn connect United_States" > /etc/cron.d/hiding
+  nordvpn connect $random_country
+  echo "*/${2:-10} * * * * root nordvpn connect $random_country" > /etc/cron.d/hiding
   sudo systemctl restart cron
 fi
