@@ -1,12 +1,9 @@
 #!/bin/bash
 
-#TODO (Install Script)
-#-Install dependencies (nordvpn, net-tools, macchanger, cron) [ X ]
-#-Add commands dynamically to ~/.bashrc and refresh it (. ~/.bashrc) [ X ]
-#-Copy hiding.sh to specified path with parameter or default to /tmp/SystemScripts [ X ]
-#-Copy cronjob to /etc/cron.d/hiding [  ]
-
 #Install dependencies
+
+sudo apt-get update
+sudo apt-get upgrade
 
 #NordVPN
 sh <(wget -qO - https://downloads.nordcdn.com/apps/linux/install.sh)
@@ -29,3 +26,7 @@ sudo chmod 777 $install_path
 echo "alias hide='sudo bash /tmp/SystemScripts/hiding.sh hide'" >> ~/.bashrc
 echo "alias unhide='sudo bash /tmp/SystemScripts/hiding.sh unhide'" >> ~/.bashrc
 . ~/.bashrc
+
+#Create cron job
+sudo touch /etc/cron.d/hiding
+sudo service cron restart
