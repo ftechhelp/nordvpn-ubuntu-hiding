@@ -16,11 +16,10 @@ sudo apt-get install macchanger
 sudo apt-get install cron
 
 #Install hide and unhide commands on local enviroment
-install_path=${1:-"/tmp/SystemScripts"}
-sudo mkdir /tmp/SystemScripts
-sudo chmod 777 /tmp/SystemScripts
-sudo cp hiding.sh $install_path
+install_path=${1:-"/usr/local/bin/SystemScripts"}
+sudo mkdir $install_path
 sudo chmod 777 $install_path
+sudo cp hiding.sh $install_path
 
 #Add commands dynamically to ~/.bashrc and refresh it
 echo "alias hide='sudo bash /tmp/SystemScripts/hiding.sh hide'" >> ~/.bashrc
@@ -29,4 +28,6 @@ echo "alias unhide='sudo bash /tmp/SystemScripts/hiding.sh unhide'" >> ~/.bashrc
 
 #Create cron job
 sudo touch /etc/cron.d/hiding
+sudo chmod 664 /etc/cron.d/hiding
+sudo chown root:root /etc/cron.d/hiding
 sudo service cron restart
