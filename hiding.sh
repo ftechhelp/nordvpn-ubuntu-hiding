@@ -24,9 +24,9 @@ done
 #Controls what the hide and unhide commands do
 if [ $1 == "hide" ]
 then
-  sudo ifconfig wlp1s0 down
+  sudo ifconfig $active_device down
   sudo macchanger -r $active_device
-  sudo ifconfig wlp1s0 up
+  sudo ifconfig $active_device up
   sleep 5
   nordvpn set killswitch on
   nordvpn connect $random_country
@@ -38,14 +38,14 @@ then
   nordvpn disconnect 
   echo "" > /etc/cron.d/hiding
   sudo systemctl restart cron
-  sudo ifconfig wlp1s0 down
-  sudo macchanger -r wlp1s0
-  sudo ifconfig wlp1s0 up
+  sudo ifconfig $active_device down
+  sudo macchanger -r $active_device
+  sudo ifconfig $active_device up
   sudo systemctl restart cron
 else
-  sudo ifconfig wlp1s0 down
+  sudo ifconfig $active_device down
   sudo macchanger -r $active_device
-  sudo ifconfig wlp1s0 up
+  sudo ifconfig $active_device up
   sleep 5
   nordvpn set killswitch on
   nordvpn connect $random_country
