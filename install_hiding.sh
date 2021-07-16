@@ -20,10 +20,11 @@ install_path=${1:-"/usr/local/bin/SystemScripts"}
 sudo mkdir $install_path
 sudo chmod 777 $install_path
 sudo cp hiding.sh $install_path
+sudo chmod 777 "$install_path/hiding.sh"
 
 #Add commands dynamically to ~/.bashrc and refresh it
-echo "alias hide='sudo bash /tmp/SystemScripts/hiding.sh hide'" >> ~/.bashrc
-echo "alias unhide='sudo bash /tmp/SystemScripts/hiding.sh unhide'" >> ~/.bashrc
+echo "alias hide='sudo bash $install_path/hiding.sh hide'" >> ~/.bashrc
+echo "alias unhide='sudo bash $install_path/hiding.sh unhide'" >> ~/.bashrc
 . ~/.bashrc
 
 #Create cron job
