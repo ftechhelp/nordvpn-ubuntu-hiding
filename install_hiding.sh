@@ -29,6 +29,6 @@ echo "alias unhide='sudo bash $install_path/hiding.sh unhide'" >> ~/.bashrc
 
 #Create cron job
 sudo touch /etc/cron.d/hiding
-sudo chmod 664 /etc/cron.d/hiding
+sudo chmod 644 /etc/cron.d/hiding
 sudo chown root:root /etc/cron.d/hiding
 sudo service cron restart
